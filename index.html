@@ -48,11 +48,35 @@
     </button>
   </div>
 
+
+  <div class="sort-controls" aria-label="Sort vacancies by application deadline">
+    <span class="sort-label">Sort by deadline</span>
+
+    <button
+      class="sort-button active"
+      type="button"
+      data-sort="earliest"
+      aria-pressed="true">
+      Earliest first
+    </button>
+
+    <button
+      class="sort-button"
+      type="button"
+      data-sort="latest"
+      aria-pressed="false">
+      Latest first
+    </button>
+  </div>
+
+
   <p id="status" aria-live="polite"></p>
+
 
   <div id="jobs">
     Loading vacancies...
   </div>
+
 
   <script src="jobs.js"></script>
 
