@@ -1,62 +1,237 @@
-body {
-  font-family: Arial, sans-serif;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 32px 20px;
-  color: #222;
-  line-height: 1.5;
+/* ========================================
+   Economics Opportunities
+   Main stylesheet
+   ======================================== */
+
+
+/* ---------- Page ---------- */
+
+* {
+  box-sizing: border-box;
 }
+
+body {
+  margin: 0;
+  padding: 48px 24px 64px;
+
+  background-color: #f6f6f4;
+  color: #242424;
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+
+/* ---------- Main heading ---------- */
+
+h1 {
+  max-width: 1050px;
+  margin: 0 auto 24px;
+
+  color: #1e1e1e;
+
+  font-size: 2.2rem;
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+
+/* ---------- Organisation filters ---------- */
 
 .filters {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin: 18px 0 28px;
+
+  max-width: 1050px;
+  margin: 0 auto 20px;
 }
 
 .filter-button {
-  border: 1px solid #444;
-  border-radius: 4px;
-  background: #fff;
-  color: #222;
-  padding: 9px 14px;
+  padding: 9px 15px;
+
+  border: 1px solid #c9c9c6;
+  border-radius: 6px;
+
+  background-color: #ffffff;
+  color: #383838;
+
   font: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+
   cursor: pointer;
+
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
 }
 
-.filter-button:hover,
+.filter-button:hover {
+  background-color: #eeeeeb;
+  border-color: #a7a7a3;
+}
+
 .filter-button:focus-visible {
-  background: #f0f0f0;
+  outline: 3px solid rgba(36, 75, 105, 0.25);
+  outline-offset: 2px;
 }
 
 .filter-button.active {
-  background: #222;
-  color: #fff;
+  background-color: #242424;
+  border-color: #242424;
+  color: #ffffff;
 }
 
+
+/* ---------- Vacancy count ---------- */
+
+#status {
+  max-width: 1050px;
+  margin: 0 auto 18px;
+
+  color: #666662;
+
+  font-size: 0.9rem;
+}
+
+
+/* ---------- Vacancy list ---------- */
+
+#jobs {
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+
+/* ---------- Individual vacancy ---------- */
+
 .job-card {
-  border-top: 1px solid #ccc;
-  padding: 22px 0;
+  margin-bottom: 18px;
+  padding: 26px 28px;
+
+  background-color: #ffffff;
+
+  border: 1px solid #e1e1de;
+  border-radius: 8px;
+
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.025),
+    0 2px 8px rgba(0, 0, 0, 0.02);
 }
 
 .job-card h2 {
-  margin: 0 0 4px;
+  margin: 0 0 14px;
+
+  color: #202020;
+
+  font-size: 1.3rem;
+  font-weight: 650;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
 }
+
+
+/* ---------- Vacancy metadata ---------- */
 
 .job-meta {
-  margin: 4px 0;
+  margin: 5px 0;
+
+  color: #4d4d4a;
+
+  font-size: 0.94rem;
+  line-height: 1.5;
 }
 
-.job-summary {
-  margin-top: 12px;
+.job-meta strong {
+  color: #30302e;
+  font-weight: 600;
 }
+
+
+/* ---------- Vacancy description ---------- */
+
+.job-summary {
+  max-width: 900px;
+
+  margin: 18px 0 0;
+
+  color: #373735;
+
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
+
+/* ---------- Vacancy link ---------- */
 
 .job-link {
   display: inline-block;
-  margin-top: 10px;
+
+  margin-top: 20px;
+  padding: 9px 14px;
+
+  background-color: #303030;
+  color: #ffffff;
+
+  border-radius: 5px;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.3;
+
+  text-decoration: none;
+
+  transition:
+    background-color 0.15s ease,
+    transform 0.15s ease;
 }
 
-#status {
-  margin: 0 0 12px;
-  color: #555;
+.job-link:hover {
+  background-color: #111111;
+}
+
+.job-link:focus-visible {
+  outline: 3px solid rgba(36, 75, 105, 0.3);
+  outline-offset: 3px;
+}
+
+
+/* ---------- Smaller screens ---------- */
+
+@media (max-width: 700px) {
+
+  body {
+    padding: 30px 16px 48px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .filters {
+    gap: 8px;
+  }
+
+  .filter-button {
+    padding: 8px 12px;
+    font-size: 0.86rem;
+  }
+
+  .job-card {
+    padding: 21px 19px;
+  }
+
+  .job-card h2 {
+    font-size: 1.18rem;
+  }
 }
