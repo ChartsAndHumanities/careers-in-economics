@@ -154,8 +154,7 @@ function renderJobs(jobs, selectedFilter = "all") {
             ? `<a
                  class="job-link"
                  href="${escapeHtml(job.URL)}"
-                 target="_blank"
-                 rel="noopener noreferrer">
+                 >
                  View vacancy
                </a>`
             : ""
