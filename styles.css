@@ -1,0 +1,62 @@
+body {
+  font-family: Arial, sans-serif;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 32px 20px;
+  color: #222;
+  line-height: 1.5;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0 28px;
+}
+
+.filter-button {
+  border: 1px solid #444;
+  border-radius: 4px;
+  background: #fff;
+  color: #222;
+  padding: 9px 14px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.filter-button:hover,
+.filter-button:focus-visible {
+  background: #f0f0f0;
+}
+
+.filter-button.active {
+  background: #222;
+  color: #fff;
+}
+
+.job-card {
+  border-top: 1px solid #ccc;
+  padding: 22px 0;
+}
+
+.job-card h2 {
+  margin: 0 0 4px;
+}
+
+.job-meta {
+  margin: 4px 0;
+}
+
+.job-summary {
+  margin-top: 12px;
+}
+
+.job-link {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+#status {
+  margin: 0 0 12px;
+  color: #555;
+}
