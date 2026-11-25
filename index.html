@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Economics opportunities</title>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <h1>Economics opportunities</h1>
+
+  <div class="filters" aria-label="Filter vacancies by organisation focus">
+    <button
+      class="filter-button active"
+      type="button"
+      data-filter="all"
+      aria-pressed="true">
+      Show all
+    </button>
+
+    <button
+      class="filter-button"
+      type="button"
+      data-filter="Economic consultancy"
+      aria-pressed="false">
+      Economic consultancy
+    </button>
+
+    <button
+      class="filter-button"
+      type="button"
+      data-filter="Professional services firm"
+      aria-pressed="false">
+      Professional services firm
+    </button>
+
+    <button
+      class="filter-button"
+      type="button"
+      data-filter="Government department"
+      aria-pressed="false">
+      Government department
+    </button>
+  </div>
+
+  <p id="status" aria-live="polite"></p>
+
+  <div id="jobs">
+    Loading vacancies...
+  </div>
+
+  <script src="jobs.js"></script>
+
+</body>
+</html>
