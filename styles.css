@@ -43,6 +43,16 @@ h1 {
   letter-spacing: -0.025em;
 }
 
+h2 {
+  max-width: 1050px;
+  margin: 0 auto 24px;
+
+  color: #4d4d4a;
+
+  font-size: 1.15rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
 
 /* ---------- Organisation filters ---------- */
 
@@ -87,6 +97,64 @@ h1 {
 }
 
 .filter-button.active {
+  background-color: #242424;
+  border-color: #242424;
+  color: #ffffff;
+}
+
+/* ---------- Deadline sorting ---------- */
+
+.sort-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+
+  max-width: 1050px;
+  margin: 0 auto 20px;
+}
+
+.sort-label {
+  margin-right: 2px;
+
+  color: #666662;
+
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.sort-button {
+  padding: 9px 15px;
+
+  border: 1px solid #c9c9c6;
+  border-radius: 6px;
+
+  background-color: #ffffff;
+  color: #383838;
+
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.sort-button:hover {
+  background-color: #eeeeeb;
+  border-color: #a7a7a3;
+}
+
+.sort-button:focus-visible {
+  outline: 3px solid rgba(36, 75, 105, 0.25);
+  outline-offset: 2px;
+}
+
+.sort-button.active {
   background-color: #242424;
   border-color: #242424;
   color: #ffffff;
