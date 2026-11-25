@@ -1,6 +1,9 @@
 const jobsContainer = document.getElementById("jobs");
 const statusMessage = document.getElementById("status");
 const filterButtons = document.querySelectorAll(".filter-button");
+const sortButtons = document.querySelectorAll(".sort-button");
+
+let selectedSort = "earliest";
 
 let allJobs = [];
 
@@ -21,10 +24,11 @@ function formatDeadline(value) {
   }
 
   return new Intl.DateTimeFormat("en-GB", {
-    day: "numeric",
+    weekday: "long",
+	day: "numeric",
     month: "long",
     year: "numeric"
-  }).format(date);
+  }).format(date).replace(",", "");
 }
 
 
@@ -51,29 +55,23 @@ function escapeHtml(value) {
  */
 function sortByDeadline(jobs) {
   return [...jobs].sort((a, b) => {
-
     const deadlineA = a.deadline_for_application;
     const deadlineB = b.deadline_for_application;
 
-    // Neither vacancy has a deadline.
-    if (!deadlineA && !deadlineB) {
-      return 0;
-    }
+    // No fixed deadline always goes at the bottom.
+    if (!deadlineA && !deadlineB) return 0;
+    if (!deadlineA) return 1;
+    if (!deadlineB) return -1;
 
-    // A has no deadline, so move it below B.
-    if (!deadlineA) {
-      return 1;
-    }
-
-    // B has no deadline, so move it below A.
-    if (!deadlineB) {
-      return -1;
-    }
-
-    // Both have deadlines, so sort earliest first.
     const dateA = new Date(`${deadlineA}T00:00:00`);
     const dateB = new Date(`${deadlineB}T00:00:00`);
 
+    // Reverse the chronological order when Latest first is selected.
+    if (selectedSort === "latest") {
+      return dateB - dateA;
+    }
+
+    // Default: earliest deadline first.
     return dateA - dateB;
   });
 }
@@ -231,6 +229,21 @@ filterButtons.forEach(button => {
 
 });
 
+
+sortButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    selectedSort = button.dataset.sort;
+
+    sortButtons.forEach(sortButton => {
+      const isActive = sortButton.dataset.sort === selectedSort;
+
+      sortButton.classList.toggle("active", isActive);
+      sortButton.setAttribute("aria-pressed", String(isActive));
+    });
+
+    applyFilter("all");
+  });
+});
 
 /*
  * Load the vacancy data.
