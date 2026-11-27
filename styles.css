@@ -1,278 +1,333 @@
 /* ========================================
    Economics Opportunities
-   Main stylesheet
+   Editorial stylesheet
    ======================================== */
-
-
-/* ---------- Page ---------- */
 
 * {
   box-sizing: border-box;
 }
 
+:root {
+  --ink: #20201e;
+  --muted: #66645f;
+  --paper: #faf9f6;
+  --rule: #ccc7bc;
+  --accent: #7a2131;
+  --accent-dark: #561623;
+}
+
 body {
   margin: 0;
-  padding: 48px 24px 64px;
-
-  background-color: #f6f6f4;
-  color: #242424;
-
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Arial,
-    sans-serif;
-
+  padding: 56px 24px 72px;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
   line-height: 1.6;
 }
 
+/* ---------- Masthead ---------- */
 
-/* ---------- Main heading ---------- */
-
-h1 {
-  max-width: 1050px;
-  margin: 0 auto 24px;
-
-  color: #1e1e1e;
-
-  font-size: 2.2rem;
-  font-weight: 650;
-  line-height: 1.2;
-  letter-spacing: -0.025em;
+h1,
+h2,
+.job-card h2 {
+  font-family: Georgia, "Times New Roman", serif;
 }
 
-h2 {
-  max-width: 1050px;
-  margin: 0 auto 24px;
+h1 {
+  max-width: 980px;
+  margin: 0 auto 10px;
+  color: #171716;
+  font-size: clamp(2.5rem, 6vw, 4.4rem);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
 
-  color: #4d4d4a;
+body > h2 {
+  max-width: 980px;
+  margin: 0 auto 34px;
+  padding-bottom: 30px;
+  border-bottom: 3px solid var(--accent);
+  color: #55524d;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0;
+}
 
-  font-size: 1.15rem;
-  font-weight: 500;
+/* ---------- Hero image ---------- */
+
+.hero {
+  max-width: 980px;
+  min-height: 360px;
+
+  margin: 0 auto 38px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(70, 15, 30, 0.05) 0%,
+      rgba(70, 15, 30, 0.35) 50%,
+      rgba(70, 15, 30, 0.90) 100%
+    ),
+    url("images/top-image.jpg");
+
+  background-size: cover;
+  background-position: center;
+
+  display: flex;
+  align-items: flex-end;
+
+  overflow: hidden;
+}
+
+.hero-content {
+  width: 100%;
+  padding: 48px 52px 42px;
+}
+
+.hero h1 {
+  max-width: 850px;
+
+  margin: 0 0 14px;
+
+  color: #ffffff;
+
+  font-size: clamp(2.7rem, 6vw, 4.8rem);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+.hero h2 {
+  max-width: 700px;
+
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+
+  color: rgba(255, 255, 255, 0.9);
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0;
+}
+
+
+/* ---------- Photo credit ---------- */
+
+.site-footer {
+  max-width: 980px;
+
+  margin: 50px auto 0;
+  padding-top: 18px;
+
+  border-top: 1px solid var(--rule);
+
+  color: var(--muted);
+
+  font-size: 0.75rem;
   line-height: 1.5;
 }
 
-/* ---------- Organisation filters ---------- */
+.site-footer p {
+  margin: 0;
+}
+
+.site-footer a {
+  color: inherit;
+}
+
+.site-footer a:hover {
+  color: var(--accent);
+}
+
+/* ---------- Controls ---------- */
+
+.filters,
+.sort-controls,
+#status,
+#jobs {
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 .filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-
-  max-width: 1050px;
-  margin: 0 auto 20px;
+  gap: 0 18px;
+  margin-bottom: 18px;
 }
 
-.filter-button {
-  padding: 9px 15px;
-
-  border: 1px solid #c9c9c6;
-  border-radius: 6px;
-
-  background-color: #ffffff;
-  color: #383838;
-
+.filter-button,
+.sort-button {
+  padding: 5px 0 4px;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: #4b4945;
   font: inherit;
-  font-size: 0.9rem;
-  font-weight: 500;
-
+  font-size: 0.84rem;
+  font-weight: 600;
   cursor: pointer;
-
-  transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease;
+  transition: color 0.15s ease, border-color 0.15s ease;
 }
 
-.filter-button:hover {
-  background-color: #eeeeeb;
-  border-color: #a7a7a3;
+.filter-button:hover,
+.sort-button:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
 }
 
-.filter-button:focus-visible {
-  outline: 3px solid rgba(36, 75, 105, 0.25);
-  outline-offset: 2px;
+.filter-button.active,
+.sort-button.active {
+  background: transparent;
+  color: var(--accent);
+  border-bottom-color: var(--accent);
 }
 
-.filter-button.active {
-  background-color: #242424;
-  border-color: #242424;
-  color: #ffffff;
+.filter-button:focus-visible,
+.sort-button:focus-visible,
+.job-link:focus-visible {
+  outline: 3px solid rgba(122, 33, 49, 0.22);
+  outline-offset: 4px;
 }
-
-/* ---------- Deadline sorting ---------- */
 
 .sort-controls {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-
-  max-width: 1050px;
-  margin: 0 auto 20px;
+  align-items: baseline;
+  gap: 0 18px;
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--rule);
 }
 
 .sort-label {
-  margin-right: 2px;
-
-  color: #666662;
-
-  font-size: 0.9rem;
-  font-weight: 500;
+  margin-right: 4px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
-
-.sort-button {
-  padding: 9px 15px;
-
-  border: 1px solid #c9c9c6;
-  border-radius: 6px;
-
-  background-color: #ffffff;
-  color: #383838;
-
-  font: inherit;
-  font-size: 0.9rem;
-  font-weight: 500;
-
-  cursor: pointer;
-
-  transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease;
-}
-
-.sort-button:hover {
-  background-color: #eeeeeb;
-  border-color: #a7a7a3;
-}
-
-.sort-button:focus-visible {
-  outline: 3px solid rgba(36, 75, 105, 0.25);
-  outline-offset: 2px;
-}
-
-.sort-button.active {
-  background-color: #242424;
-  border-color: #242424;
-  color: #ffffff;
-}
-
 
 /* ---------- Vacancy count ---------- */
 
 #status {
-  max-width: 1050px;
-  margin: 0 auto 18px;
-
-  color: #666662;
-
-  font-size: 0.9rem;
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
 }
-
 
 /* ---------- Vacancy list ---------- */
 
 #jobs {
-  max-width: 1050px;
-  margin: 0 auto;
+  border-top: 1px solid #9d998f;
 }
 
+/* ---------- Hyperlinked job titles ---------- */
+
+.job-title-link {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.job-title-link:hover {
+  color: var(--accent-dark);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.job-title-link:focus-visible {
+  outline: 3px solid rgba(122, 33, 49, 0.22);
+  outline-offset: 4px;
+}
 
 /* ---------- Individual vacancy ---------- */
 
 .job-card {
-  margin-bottom: 18px;
-  padding: 26px 28px;
-
-  background-color: #ffffff;
-
-  border: 1px solid #e1e1de;
-  border-radius: 8px;
-
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.025),
-    0 2px 8px rgba(0, 0, 0, 0.02);
+  margin: 0;
+  padding: 32px 0 34px;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .job-card h2 {
-  margin: 0 0 14px;
-
-  color: #202020;
-
-  font-size: 1.3rem;
-  font-weight: 650;
-  line-height: 1.35;
-  letter-spacing: -0.01em;
+  max-width: none;
+  margin: 0 0 8px;
+  color: #181817;
+  font-size: 1.55rem;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.018em;
 }
-
 
 /* ---------- Vacancy metadata ---------- */
 
 .job-meta {
-  margin: 5px 0;
-
-  color: #4d4d4a;
-
-  font-size: 0.94rem;
-  line-height: 1.5;
+  margin: 3px 0;
+  color: #55524d;
+  font-size: 0.87rem;
+  line-height: 1.52;
 }
 
 .job-meta strong {
-  color: #30302e;
-  font-weight: 600;
+  color: #2d2c29;
+  font-weight: 700;
 }
-
 
 /* ---------- Vacancy description ---------- */
 
 .job-summary {
-  max-width: 900px;
-
+  max-width: 760px;
   margin: 18px 0 0;
-
-  color: #373735;
-
-  font-size: 0.98rem;
-  line-height: 1.7;
+  color: #33322f;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.03rem;
+  line-height: 1.72;
 }
-
 
 /* ---------- Vacancy link ---------- */
 
 .job-link {
   display: inline-block;
-
-  margin-top: 20px;
-  padding: 9px 14px;
-
-  background-color: #303030;
-  color: #ffffff;
-
-  border-radius: 5px;
-
-  font-size: 0.9rem;
-  font-weight: 600;
-  line-height: 1.3;
-
+  margin-top: 18px;
+  padding: 0 0 3px;
+  background: transparent;
+  color: var(--accent);
+  border-bottom: 1px solid var(--accent);
+  border-radius: 0;
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.35;
   text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
 
-  transition:
-    background-color 0.15s ease,
-    transform 0.15s ease;
+.job-link::after {
+  content: "  →";
 }
 
 .job-link:hover {
-  background-color: #111111;
+  background: transparent;
+  color: var(--accent-dark);
+  border-bottom-color: var(--accent-dark);
 }
-
-.job-link:focus-visible {
-  outline: 3px solid rgba(36, 75, 105, 0.3);
-  outline-offset: 3px;
-}
-
 
 /* ---------- Smaller screens ---------- */
 
@@ -282,8 +337,21 @@ h2 {
     padding: 30px 16px 48px;
   }
 
-  h1 {
+  .hero {
+    min-height: 360px;
+    margin-bottom: 38px;
+  }
+
+  .hero-content {
+    padding: 48px 28px 42px;
+  }
+
+  .hero h1 {
     font-size: 1.8rem;
+  }
+
+  .hero h2 {
+    font-size: 1rem;
   }
 
   .filters {
@@ -291,15 +359,105 @@ h2 {
   }
 
   .filter-button {
-    padding: 8px 12px;
     font-size: 0.86rem;
   }
 
   .job-card {
-    padding: 21px 19px;
+    padding: 21px 0;
   }
 
   .job-card h2 {
     font-size: 1.18rem;
   }
+
+  .job-summary {
+    font-size: 1rem;
+  }
+}
+
+
+
+/* ---------- Read more / Show less ---------- */
+
+.read-more-button {
+  margin-top: 8px;
+  padding: 0 0 2px;
+
+  border: 0;
+  border-bottom: 1px solid var(--accent);
+  border-radius: 0;
+
+  background: transparent;
+  color: var(--accent);
+
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.read-more-button:hover {
+  color: var(--accent-dark);
+  border-bottom-color: var(--accent-dark);
+}
+
+.read-more-button:focus-visible {
+  outline: 3px solid rgba(122, 33, 49, 0.22);
+  outline-offset: 4px;
+}
+
+.site-footer {
+  max-width: 980px;
+  margin: 50px auto 0;
+  padding-top: 18px;
+
+  border-top: 1px solid var(--rule);
+
+  color: var(--muted);
+
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+/* ---------- Bottom image strip ---------- */
+
+.bottom-image {
+  max-width: 980px;
+  height: 20px;
+
+  margin: 45px auto 0;
+
+  background:
+    linear-gradient(
+      to right,
+      rgba(70, 15, 30, 0.15),
+      rgba(70, 15, 30, 0.65)
+    ),
+    url("images/top-image.jpg");
+
+  background-size: cover;
+  background-position: center top;
+}
+
+/* ---------- Site footer ---------- */
+
+.site-footer a {
+  color: inherit;
+}
+
+.site-footer a:hover {
+  color: var(--accent);
+}
+
+.site-footer p {
+  margin: 0 0 8px;
+}
+
+.site-footer p:last-child {
+  margin-bottom: 0;
 }
