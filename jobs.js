@@ -7,6 +7,8 @@ let selectedSort = "earliest";
 
 let allJobs = [];
 
+const SUMMARY_PREVIEW_LENGTH = 160;
+
 
 /*
  * Convert the YYYY-MM-DD value stored in jobs.json
@@ -25,7 +27,7 @@ function formatDeadline(value) {
 
   return new Intl.DateTimeFormat("en-GB", {
     weekday: "long",
-	day: "numeric",
+    day: "numeric",
     month: "long",
     year: "numeric"
   }).format(date).replace(",", "");
@@ -43,6 +45,32 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+
+/*
+ * Shorten long vacancy summaries for the initial display.
+ * The text is cut at a word boundary rather than in the
+ * middle of a word.
+ */
+function truncateSummary(
+  text,
+  maxLength = SUMMARY_PREVIEW_LENGTH
+) {
+  const value = String(text ?? "").trim();
+
+  if (value.length <= maxLength) {
+    return value;
+  }
+
+  const shortened = value.slice(0, maxLength);
+  const lastSpace = shortened.lastIndexOf(" ");
+
+  if (lastSpace === -1) {
+    return shortened + "...";
+  }
+
+  return shortened.slice(0, lastSpace) + "...";
 }
 
 
@@ -104,11 +132,30 @@ function renderJobs(jobs, selectedFilter = "all") {
         ? job.focus_of_work.join(", ")
         : (job.focus_of_work || "Not stated");
 
+    const fullSummary =
+      String(job.summary_note || "").trim();
+
+    const summaryIsLong =
+      fullSummary.length > SUMMARY_PREVIEW_LENGTH;
+
+    const summaryPreview =
+      truncateSummary(fullSummary);
+
     return `
       <article class="job-card">
 
-        <h2>
-          ${escapeHtml(job.job_title || "Untitled vacancy")}
+       <!-- <h2>
+         ${escapeHtml(job.job_title || "Untitled vacancy")}
+        </h2>
+       -->
+      
+       <h2>
+         <a
+            class="job-title-link"
+            href="${escapeHtml(job.URL || "#")}"  
+          >
+         ${escapeHtml(job.job_title || "Untitled vacancy")}
+          </a>
         </h2>
 
         <p class="job-meta">
@@ -119,6 +166,11 @@ function renderJobs(jobs, selectedFilter = "all") {
         <p class="job-meta">
           <strong>Organisation focus:</strong>
           ${escapeHtml(organisationFocus)}
+        </p>
+
+         <p class="job-meta">
+          <strong>Career stage:</strong>
+          ${escapeHtml(job.career_stage || "Not stated")}
         </p>
 
         <p class="job-meta">
@@ -143,18 +195,48 @@ function renderJobs(jobs, selectedFilter = "all") {
           )}
         </p>
 
-        <p class="job-summary">
-          ${escapeHtml(job.summary_note || "")}
+        <p class="job-meta">
+          <strong>Deadline type:</strong>
+          ${escapeHtml(job.deadline_type || "Not stated")}
         </p>
+
+        <div class="job-summary-wrapper">
+
+          <p
+            class="job-summary"
+            data-preview="${escapeHtml(summaryPreview)}"
+            data-full="${escapeHtml(fullSummary)}"
+          >
+            ${escapeHtml(summaryPreview)}
+          </p>
+
+          ${
+            summaryIsLong
+              ? `
+                <button
+                  class="read-more-button"
+                  type="button"
+                  aria-expanded="false"
+                >
+                  Read more
+                </button>
+              `
+              : ""
+          }
+
+        </div>
 
         ${
           job.URL
-            ? `<a
-                 class="job-link"
-                 href="${escapeHtml(job.URL)}"
-                 >
-                 View vacancy
-               </a>`
+            ? `
+              <a
+                class="job-link"
+                href="${escapeHtml(job.URL)}"
+                
+              >
+                View vacancy
+              </a>
+            `
             : ""
         }
 
@@ -164,6 +246,49 @@ function renderJobs(jobs, selectedFilter = "all") {
   }).join("");
 
 
+  /*
+   * Expand and collapse individual vacancy summaries.
+   */
+  jobsContainer
+    .querySelectorAll(".read-more-button")
+    .forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        const summary =
+          button.previousElementSibling;
+
+        const isExpanded =
+          button.getAttribute("aria-expanded") === "true";
+
+        if (isExpanded) {
+          summary.textContent =
+            summary.dataset.preview;
+
+          button.textContent = "Read more";
+
+          button.setAttribute(
+            "aria-expanded",
+            "false"
+          );
+
+        } else {
+          summary.textContent =
+            summary.dataset.full;
+
+          button.textContent = "Show less";
+
+          button.setAttribute(
+            "aria-expanded",
+            "true"
+          );
+        }
+
+      });
+
+    });
+
+
   const categoryText =
     selectedFilter === "all"
       ? ""
@@ -171,7 +296,9 @@ function renderJobs(jobs, selectedFilter = "all") {
 
   statusMessage.textContent =
     `${sortedJobs.length} ${
-      sortedJobs.length === 1 ? "vacancy" : "vacancies"
+      sortedJobs.length === 1
+        ? "vacancy"
+        : "vacancies"
     } shown${categoryText}`;
 }
 
@@ -205,7 +332,10 @@ function applyFilter(selectedFilter) {
     const isActive =
       button.dataset.filter === selectedFilter;
 
-    button.classList.toggle("active", isActive);
+    button.classList.toggle(
+      "active",
+      isActive
+    );
 
     button.setAttribute(
       "aria-pressed",
@@ -230,20 +360,37 @@ filterButtons.forEach(button => {
 });
 
 
+/*
+ * Listen for changes to deadline sorting.
+ */
 sortButtons.forEach(button => {
+
   button.addEventListener("click", () => {
+
     selectedSort = button.dataset.sort;
 
     sortButtons.forEach(sortButton => {
-      const isActive = sortButton.dataset.sort === selectedSort;
 
-      sortButton.classList.toggle("active", isActive);
-      sortButton.setAttribute("aria-pressed", String(isActive));
+      const isActive =
+        sortButton.dataset.sort === selectedSort;
+
+      sortButton.classList.toggle(
+        "active",
+        isActive
+      );
+
+      sortButton.setAttribute(
+        "aria-pressed",
+        String(isActive)
+      );
+
     });
 
     applyFilter("all");
   });
+
 });
+
 
 /*
  * Load the vacancy data.
@@ -273,20 +420,20 @@ fetch("jobs.json")
     applyFilter("all");
   })
 
-.catch(error => {
+  .catch(error => {
 
-  console.error(
-    "Unable to load jobs.json:",
-    error
-  );
+    console.error(
+      "Unable to load jobs.json:",
+      error
+    );
 
-  jobsContainer.innerHTML =
-    `<p>
-      Unable to load vacancies.
-      Check that jobs.json is in the same folder
-      and that the page is running through Live Server
-      or another local server.
-    </p>`;
+    jobsContainer.innerHTML =
+      `<p>
+        Unable to load vacancies.
+        Check that jobs.json is in the same folder
+        and that the page is running through Live Server
+        or another local server.
+      </p>`;
 
-  statusMessage.textContent = "";
-});
+    statusMessage.textContent = "";
+  });
